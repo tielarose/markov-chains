@@ -71,7 +71,15 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    link = choice(list(chains.keys()))
+    words += list(link)
+
+    while chains[link]:
+        next_word = choice(chains[link])
+        words.append(next_word)
+        link = (words[-2], words[-1])
+
+    # print(words)
 
     return ' '.join(words)
 
@@ -84,8 +92,7 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-# # Produce random text
-# random_text = make_text(chains)
+# Produce random text
+random_text = make_text(chains)
 
-# print(random_text)
-print(chains)
+print(random_text)
