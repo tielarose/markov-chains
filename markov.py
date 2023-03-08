@@ -47,9 +47,10 @@ def make_chains(text_string):
 
     index = 0
     while index < (len(words_list) - 2):
-        word = words_list[index]
-        next_word = words_list[index+1]
-        third_word = words_list[index+2]
+        # word = words_list[index]
+        # next_word = words_list[index+1]
+        # third_word = words_list[index+2]
+        word, next_word, third_word = words_list[index:index+3]
 
         bigram = (word, next_word)
 
@@ -57,6 +58,12 @@ def make_chains(text_string):
             chains[bigram].append(third_word)
         else:
             chains[bigram] = [third_word]
+
+        # if bigram not in chains:
+            # chains[bigram] = []
+        # chains[bigram].append(third_word)
+
+        # chains[bigram] = chains.get(bigram, []).append(third_word)
 
         index += 1
 
@@ -72,7 +79,7 @@ def make_text(chains):
     words = []
 
     link = choice(list(chains.keys()))
-    words += list(link)
+    words.append(list(link))
 
     while chains[link]:
         next_word = choice(chains[link])
