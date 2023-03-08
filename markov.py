@@ -1,5 +1,5 @@
 from random import choice
-import sys
+# import sys
 """Generate Markov text from text files."""
 
 
@@ -25,6 +25,7 @@ def make_chains(text_string):
     For example:
 
         >>> chains = make_chains('hi there mary hi there juanita')
+                                w1    w2   w3   w4  w5    w6
 
     Each bigram (except the last) will be a key in chains:
 
@@ -42,7 +43,25 @@ def make_chains(text_string):
 
     chains = {}
 
-    # your code goes here
+    words_list = text_string.split()
+
+    index = 0
+    while index < (len(words_list) - 2):
+        word = words_list[index]
+        next_word = words_list[index+1]
+        third_word = words_list[index+2]
+
+        bigram = (word, next_word)
+
+        if bigram in chains:
+            chains[bigram].append(third_word)
+        else:
+            chains[bigram] = [third_word]
+
+        index += 1
+
+    last_tuple = (words_list[-2], words_list[-1])
+    chains[last_tuple] = []
 
     return chains
 
@@ -65,7 +84,8 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-# Produce random text
-random_text = make_text(chains)
+# # Produce random text
+# random_text = make_text(chains)
 
-print(random_text)
+# print(random_text)
+print(chains)
